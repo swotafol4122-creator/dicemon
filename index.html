@@ -1436,7 +1436,7 @@ function schedule() {
 }
 
 /* ===== がめんの きりかえ ===== */
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 const SCR = {};
 let CUR = null, CUR_ARG = null;
 function go(name, arg) {
@@ -2958,7 +2958,9 @@ SCR.settings = function () {
       <label>おおきさ<input type="range" min="0" max="1" step="0.05" value="${o.vol}" data-vol></label></div>
     <div class="set"><h4>バトルの はやさ</h4><div class="seg">${['ふつう', 'はやい', 'さいそく'].map((n, i) => `<button class="${o.speed === i ? 'on' : ''}" data-a="spd" data-v="${i}">${n}</button>`).join('')}</div></div>
     <div class="set"><h4>なまえ</h4><button class="btn ghost" data-a="name" style="width:100%">${esc(S.name)} を かえる</button></div>
-    <div class="set"><h4>アプリに する</h4><p class="lead" style="margin:0 0 8px">ホームがめんに おくと アプリのように あそべる（オフラインでも うごく）。<br>iPhone：Safariの「きょうゆう」→「ホームがめんに ついか」<br>Android：Chromeの「︙」→「アプリを インストール」</p>${INSTALL ? '<button class="btn" data-a="inst" style="width:100%">📲 いますぐ インストール</button>' : ''}</div>
+    <div class="set"><h4>アプリに する</h4><p class="lead" style="margin:0 0 8px">ホームがめんに おくと アプリのように あそべる（オフラインでも うごく）。<br>iPhone：Safariの「きょうゆう」→「ホームがめんに ついか」<br>Android：Chromeの「︙」→「アプリを インストール」</p>${INSTALL ? '<button class="btn" data-a="inst" style="width:100%">📲 いますぐ インストール</button>' : ''}
+      ${matchMedia('(display-mode: standalone)').matches ? '<p class="fdesc">✓ いま アプリとして ひらいています</p>' : ''}
+      <p class="fdesc">「すでに インストールされています」と 出たら、もう 入っている しるし。スマホの アプリ一覧で「ダイスモン」を さがして、長おしで ホーム画面に おけるよ。</p></div>
     <div class="set"><h4>データの ひきつぎ</h4><p class="lead" style="margin:0 0 8px">データは この ブラウザに じどうで ほぞんされる。きしゅへんこうの ときは コードで ひきつごう。</p>
       <div class="row2" style="margin-top:0"><button class="btn ghost" data-a="exp">コードを つくる</button><button class="btn ghost" data-a="imp">コードで よみこむ</button></div></div>
     <div class="set"><h4>データを けす</h4><button class="btn red" data-a="reset" style="width:100%">さいしょから やりなおす</button></div>

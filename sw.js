@@ -1,5 +1,5 @@
 // ころがれ！ダイスモン オフライン用
-const CACHE = 'dicemon-v1.0.0';
+const CACHE = 'dicemon-v1.0.1';
 const FONT_CACHE = 'dicemon-fonts';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 self.addEventListener('install', e => {
