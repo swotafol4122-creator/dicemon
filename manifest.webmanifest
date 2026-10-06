@@ -1,10 +1,10 @@
 {
-  "id": "/korogare-dicemon",
+  "id": "/dicemon/app",
   "name": "ころがれ！ダイスモン",
   "short_name": "ダイスモン",
   "description": "サイコロで たたかう モンスター収集RPG",
   "lang": "ja",
-  "start_url": "./",
+  "start_url": "./?app=1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

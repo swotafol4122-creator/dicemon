@@ -6,7 +6,7 @@
 <title>ころがれ！ダイスモン</title>
 <meta name="description" content="サイコロで たたかい、あつめて、まぜて、そだてる。すごろく×モンスター収集RPG">
 <meta name="theme-color" content="#26213A">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=1.0.2">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1436,7 +1436,7 @@ function schedule() {
 }
 
 /* ===== がめんの きりかえ ===== */
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 const SCR = {};
 let CUR = null, CUR_ARG = null;
 function go(name, arg) {
@@ -2550,6 +2550,7 @@ SCR.home = function () {
   const towerOpen = !!S.cleared.gakkou;
   $('#app').innerHTML = `<main class="scr home">
     <header class="hh"><div class="hh-l"><b class="pname">${esc(S.name)}</b><span class="medals">${main.map(a => `<span class="medal ${S.cleared[a.id] ? 'on' : ''}">${S.cleared[a.id] ? a.e : ''}</span>`).join('')}</span></div><span class="chip coin">💰${fmt(S.coins)}</span></header>
+    ${INSTALL ? '<button class="resume" data-a="inst" style="background:#BDF2CF"><span>📲 ホーム画面に アプリとして おく</span><b>▶</b></button>' : ''}
     ${S.run ? `<button class="resume" data-a="resume"><span>すごろくの つづき：${AREA[S.run.area].e} ${AREA[S.run.area].n}（${S.run.pos + 1}/${S.run.tiles.length}マス）</span><b>▶</b></button>` : ''}
     <h2 class="sec">ころがし町 <small>マスを すすんで ヌシに いどもう</small></h2>
     <ol class="road">
@@ -2570,6 +2571,7 @@ SCR.home = function () {
     tower() { if (!towerOpen) { toast('がっこうの ヌシに かつと ひらく'); return; } go('tower'); },
     party() { go('party'); }, dex() { go('dex'); }, fuse() { go('fuse'); }, shop() { go('shop'); },
     menu() { menuSheet(); },
+    async inst() { if (!INSTALL) return; const e = INSTALL; INSTALL = null; e.prompt(); try { await e.userChoice; } catch (er) { } SCR.home(); },
   });
 };
 function areaSheet(a) {
@@ -3020,7 +3022,8 @@ function boot() {
     else if (AU.ctx) AU.ctx.resume();
   });
   window.addEventListener('pagehide', save);
-  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); INSTALL = e; });
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); INSTALL = e; if (CUR === 'home' || CUR === 'settings') SCR[CUR](); });
+  window.addEventListener('appinstalled', () => { INSTALL = null; toast('アプリに なった！ ホーム画面や アプリ一覧から ひらけるよ', 'gold'); if (CUR === 'home' || CUR === 'settings') SCR[CUR](); });
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('./sw.js').catch(() => { });
   window.__DM = { get S() { return S; }, go, startBattle, SP, AREAS };
 }
